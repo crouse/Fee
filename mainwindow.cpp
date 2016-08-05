@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTableView>
+#include <QItemDelegate>
 #include <QRegExp>
 #include <QMenu>
 
@@ -156,6 +157,7 @@ void MainWindow::setQueryModel()
 
     maleModel->setFilter(filter);
     maleModel->select();
+    // ui->tableViewMale->setItemDelegateForColumn;
     ui->tableViewMale->setModel(maleModel);
     // hide useless columns here
     ui->tableViewMale->hideColumn(0);
@@ -511,9 +513,9 @@ bool MainWindow::setRowReuseStat(QString receipt)
     QSqlQuery query;
     QString sql;
     if (receipt.startsWith("A")) {
-        sql = QString("update zen_male set data_ready_mark = '%1' where receipt = '%2'").arg(DATA_READY_MARK_DEL).arg(receipt);
+        sql = QString("update zen_male set name = '已删除(请不要修改)', data_ready_mark = '%1' where receipt = '%2'").arg(DATA_READY_MARK_DEL).arg(receipt);
     } else {
-        sql = QString("update zen_female set data_ready_mark = '%1' where receipt = '%2'").arg(DATA_READY_MARK_DEL).arg(receipt);
+        sql = QString("update zen_female set name = '已删除(请不要修改)', data_ready_mark = '%1' where receipt = '%2'").arg(DATA_READY_MARK_DEL).arg(receipt);
     }
 
     query.exec(sql);

@@ -123,6 +123,22 @@
         </widget>
        </item>
        <item>
+        <widget class="QLineEdit" name="lineEditFname">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 5px;</string>
+         </property>
+         <property name="placeholderText">
+          <string>  法名：&lt;可选择&gt;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButtonSave">
          <property name="text">
           <string>保存</string>

@@ -324,6 +324,10 @@ void MainWindow::on_pushButtonSave_clicked()
     QString pid = ui->lineEditID->text().trimmed();
     QString fname = makeFname(name);
 
+    if (!ui->lineEditFname->text().isEmpty()) {
+        fname = ui->lineEditFname->text().trimmed();
+    }
+
     if (name.isEmpty() || phone.isEmpty() || pid.isEmpty()) {
         QMessageBox::information(this, "", "请不要输入空记录");
         ui->lineEditName->setFocus();

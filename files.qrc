@@ -3,5 +3,7 @@
         <file>files/connect.png</file>
         <file>files/save.png</file>
         <file>files/search.png</file>
+        <file>files/delete.png</file>
+        <file>files/modify.png</file>
     </qresource>
 </RCC>

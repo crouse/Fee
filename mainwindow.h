@@ -90,6 +90,10 @@ private slots:
 
     void on_actionSetResue_triggered();
 
+    void on_actionModify_triggered();
+
+    void receiveData(QString receipt, QString name, QString phone, QString pid, QString fname);
+
 private:
     Ui::MainWindow *ui;
 };

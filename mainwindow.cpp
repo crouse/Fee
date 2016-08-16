@@ -4,6 +4,7 @@
 #include <QItemDelegate>
 #include <QRegExp>
 #include <QMenu>
+#include <form.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -248,6 +249,7 @@ void MainWindow::clearLineEdits()
     ui->lineEditID->clear();
     ui->lineEditPhone->clear();
     ui->lineEditName->setFocus();
+    ui->lineEditFname->clear();
 }
 
 void MainWindow::refreshTableView(QString tableName, QString filter)
@@ -487,6 +489,7 @@ void MainWindow::viewPopMenu()
 {
     QMenu *popMenu = new QMenu(this);
     popMenu->addAction(ui->actionSetResue);
+    popMenu->addAction(ui->actionModify);
     popMenu->exec(QCursor::pos());
 
     delete popMenu;
@@ -556,4 +559,44 @@ void MainWindow::on_actionSetResue_triggered()
     if (globalReceipt.startsWith("A")) refreshTableView("zen_male", "");
     else refreshTableView("zen_female", "");
     qDebug() << "setRowReuseStat:" << globalReceipt;
+}
+
+void MainWindow::on_actionModify_triggered()
+{
+    Form *form = new Form();
+    form->setWindowModality(Qt::ApplicationModal);
+    connect(form, SIGNAL(sendData(QString,QString,QString,QString, QString)), this, SLOT(receiveData(QString,QString,QString,QString, QString)));
+
+    QSqlQuery query;
+    QString tableName = globalReceipt.startsWith("A") ? "zen_male": "zen_female";
+    qDebug() << tableName;
+    QString sql = QString("select name, gender, phone_num as phone, personnel_id as pid, fname from %1 where receipt = '%2'").arg(tableName).arg(globalReceipt);
+    qDebug() << sql;
+    query.exec(sql);
+
+    while(query.next()) {
+        form->name = query.value(0).toString();
+        form->phone = query.value(2).toString();
+        form->pid = query.value(3).toString();
+        form->fname = query.value(4).toString();
+    }
+
+    form->receipt = globalReceipt;
+
+    form->setUiValues();
+    form->show();
+}
+
+void MainWindow::receiveData(QString receipt, QString name, QString phone, QString pid, QString fname)
+{
+    qDebug() << "receiveData" << receipt << name << phone << pid << fname;
+    QSqlQuery query;
+    QString sql;
+    QString tableName = receipt.startsWith("A") ? "zen_male": "zen_female";
+
+    sql = QString("update %1 set name = '%2', phone_num = '%3', personnel_id = '%4', fname = '%5' where receipt = '%6'").arg(tableName)
+            .arg(name).arg(phone).arg(pid).arg(fname).arg(receipt);
+    query.exec(sql);
+    qDebug() << query.lastError().text();
+    refreshTableView(tableName, "");
 }

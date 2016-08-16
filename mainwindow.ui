@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>976</width>
-    <height>608</height>
+    <width>952</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -134,7 +134,7 @@
           <string notr="true">border-radius: 5px;</string>
          </property>
          <property name="placeholderText">
-          <string>  法名：&lt;可选择&gt;</string>
+          <string>  法名：&lt;可选填&gt;</string>
          </property>
         </widget>
        </item>
@@ -246,8 +246,21 @@
    </property>
   </action>
   <action name="actionSetResue">
+   <property name="icon">
+    <iconset resource="files.qrc">
+     <normaloff>:/files/delete.png</normaloff>:/files/delete.png</iconset>
+   </property>
    <property name="text">
     <string> 删除此行</string>
+   </property>
+  </action>
+  <action name="actionModify">
+   <property name="icon">
+    <iconset resource="files.qrc">
+     <normaloff>:/files/modify.png</normaloff>:/files/modify.png</iconset>
+   </property>
+   <property name="text">
+    <string>更改行</string>
    </property>
   </action>
  </widget>

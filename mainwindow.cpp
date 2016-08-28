@@ -350,7 +350,7 @@ void MainWindow::on_pushButtonSave_clicked()
     }
 
     QMessageBox msgBox;
-    QString msg = QString("<请核查，正确请点击 Yes 错误点击 No>\n\n\n姓名: %1\n性别: %2\n手机号: %3\n身份证号: %4\n")
+    QString msg = QString("<font color=red>请核查，正确请点击 Yes 错误点击 No</font><br><br>姓名: %1<br>性别: %2<br>手机号: %3<br>身份证号: %4")
             .arg(name).arg(gender).arg(sphone).arg(spid);
 
     msgBox.setText(msg);
@@ -433,7 +433,7 @@ void MainWindow::on_pushButtonSave_clicked()
     }
 
     QMessageBox mbox;
-    mbox.setText(QString("姓名: %1 性别: %2 手环号: %3").arg(name).arg(gender).arg(receipt));
+    mbox.setText(QString("姓名: %1 性别: %2 手环号:<font color=red>%3</font>").arg(name).arg(gender).arg(receipt));
     mbox.exec();
     refreshTableView(tableName, "");
 }
